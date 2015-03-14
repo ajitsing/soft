@@ -1,4 +1,5 @@
 Dir["./lib/tokenizer/*machine.rb"].each {|file| require file }
+require 'pry'
 
 class TokenFactory
   def initialize
