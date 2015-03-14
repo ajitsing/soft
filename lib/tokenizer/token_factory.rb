@@ -3,17 +3,14 @@ Dir["./lib/tokenizer/*machine.rb"].each {|file| require file }
 
 class TokenFactory
   def initialize
-    print_key = KeywordMachine.new('print')
-    class_key = KeywordMachine.new('class')
-    method_key = KeywordMachine.new('meth')
-    end_key = KeywordMachine.new('end')
     identifier_machine = IdentifierMachine.new
     string_machine = StringMachine.new
     number_machine = NumberMachine.new
     expression_machine = ExpressionMachine.new
     operator_machine = OperatorMachine.new
+    keyword_machines = ['print', 'class', 'meth', 'end'].map { |keyword| KeywordMachine.new(keyword) }
 
-    @machines = [print_key, class_key, method_key, end_key, string_machine, number_machine, expression_machine, identifier_machine, operator_machine]
+    @machines = [string_machine, number_machine, expression_machine, identifier_machine, operator_machine] + keyword_machines
   end
 
   def raw_data(data)
