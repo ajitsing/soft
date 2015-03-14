@@ -4,7 +4,7 @@ describe :TokenFactory do
   it 'should return :print token' do
     factory = TokenFactory.new
     factory.raw_data('p').raw_data('r').raw_data('i').raw_data('n').raw_data('t')
-    factory.get_token.inspect.should == 'print'
+    factory.get_token.inspect.should == 'KEY:print'
   end
 
   it 'should return string value when the token is string' do
