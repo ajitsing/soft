@@ -9,7 +9,7 @@ describe :OperatorMachine do
     sm = OperatorMachine.new
     sm.input('=')
     sm.state.should == :final
-    sm.val.should == 'EQ'
+    sm.val.inspect.should == 'EQ'
   end
 
   it 'should be in :dead state when input is not an operator' do

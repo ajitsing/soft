@@ -9,7 +9,7 @@ describe :StringMachine do
   it 'should be in :final state when right string is given' do
     sm = StringMachine.new.input("\"").input("a").input("b").input("\"")
     sm.in_final_state?.should == true
-    sm.val.should == "STRING:ab"
+    sm.val.inspect.should == "STRING:ab"
   end
 
   it 'should be in :running state when string is not closed' do

@@ -1,4 +1,5 @@
 require_relative 'state_machine'
+require_relative '../tokenizer/tokens/string_token'
 
 class StringMachine < StateMachine
   def initialize
@@ -23,7 +24,7 @@ class StringMachine < StateMachine
   end
 
   def val
-    'STRING:' + @string
+    StringToken.new @string
   end
 
   def reset_state

@@ -1,27 +1,28 @@
 require_relative 'state_machine'
+require_relative '../tokenizer/tokens/identifier_token'
 
 class IdentifierMachine < StateMachine
   def initialize
     super
-    @var_name = ""
+    @identifier = ""
   end
 
   def input(x)
     if x.eql? ' '
       @current_state = :dead
     else
-      @var_name << x
+      @identifier << x
       @current_state = :final
     end
     self
   end
 
   def val
-    "ID:" + @var_name
+    IdentifierToken.new @identifier
   end
 
   def reset_state
     super
-    @var_name = ""
+    @identifier = ""
   end
 end

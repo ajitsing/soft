@@ -1,4 +1,5 @@
 require_relative 'state_machine'
+require_relative '../tokenizer/tokens/keyword_token'
 
 class KeywordMachine < StateMachine
   def initialize(keyword)
@@ -19,7 +20,7 @@ class KeywordMachine < StateMachine
   end
 
   def val
-    'KEY:' + @keyword
+    KeywordToken.new @keyword
   end
 
   def reset_state

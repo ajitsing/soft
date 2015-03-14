@@ -10,7 +10,7 @@ describe :ExpressionMachine do
   end
 
   it 'should return the expression' do
-    ExpressionMachine.new.input('1').input('+').input('1').val.should == 'EXP:1+1'
+    ExpressionMachine.new.input('1').input('+').input('1').val.inspect.should == 'EXP:1+1'
   end
 
   it 'should be in :final state when input is number with mathematical operators' do

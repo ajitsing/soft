@@ -1,4 +1,5 @@
 require_relative 'state_machine'
+require_relative '../tokenizer/tokens/token'
 
 class OperatorMachine < StateMachine
   def initialize
@@ -18,7 +19,7 @@ class OperatorMachine < StateMachine
   end
 
   def val
-    @supported_ops[@operator]
+    Token.new @supported_ops[@operator]
   end
 
   def reset_state

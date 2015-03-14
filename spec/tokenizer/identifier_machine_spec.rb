@@ -13,7 +13,7 @@ describe :IdentifierMachine do
 
   it 'should return the captured identifyer' do
     sm = IdentifierMachine.new
-    sm.input('n').input('a').input('m').input('e').val.should == 'ID:name'
+    sm.input('n').input('a').input('m').input('e').val.inspect.should == 'ID:name'
   end
 
   it 'should be in :dead state when input is a space' do

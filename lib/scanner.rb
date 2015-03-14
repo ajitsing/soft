@@ -19,8 +19,8 @@ class Scanner
   end
 
   def self.add_token_to(tokens, next_token)
-    if !tokens.empty? and tokens.last.expression? and next_token.expression?
-      tokens[-1] = Token.new('EXP:' + tokens.last.val + next_token.val)
+    if !tokens.empty? and tokens.last.is_a? ExpressionToken and next_token.is_a? ExpressionToken
+      tokens[-1] = ExpressionToken.new(tokens.last.val + next_token.val)
     else
       tokens.push next_token
     end

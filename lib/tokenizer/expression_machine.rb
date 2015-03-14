@@ -1,4 +1,5 @@
 require_relative 'state_machine'
+require_relative '../tokenizer/tokens/expression_token'
 
 class ExpressionMachine < StateMachine
   def initialize
@@ -22,7 +23,7 @@ class ExpressionMachine < StateMachine
   end
 
   def val
-    'EXP:' + @expression
+    ExpressionToken.new @expression
   end
 
   def has_mathematical_ops?
