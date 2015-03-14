@@ -1,6 +1,6 @@
 require_relative 'state_machine'
 
-class IdentifyerMachine < StateMachine
+class IdentifierMachine < StateMachine
   def initialize
     super
     @var_name = ""

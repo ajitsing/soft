@@ -7,13 +7,13 @@ class TokenFactory
     class_key = KeywordMachine.new('class')
     method_key = KeywordMachine.new('meth')
     end_key = KeywordMachine.new('end')
-    identifyer_machine = IdentifyerMachine.new
+    identifier_machine = IdentifierMachine.new
     string_machine = StringMachine.new
     number_machine = NumberMachine.new
     expression_machine = ExpressionMachine.new
     operator_machine = OperatorMachine.new
 
-    @machines = [print_key, class_key, method_key, end_key, string_machine, number_machine, expression_machine, identifyer_machine, operator_machine]
+    @machines = [print_key, class_key, method_key, end_key, string_machine, number_machine, expression_machine, identifier_machine, operator_machine]
   end
 
   def raw_data(data)
@@ -52,7 +52,7 @@ class TokenFactory
     key_machine = machines.select {|m| m.is_a? KeywordMachine}.first
     string_machine = machines.select {|m| m.is_a? StringMachine}.first
     expression_machine = machines.select {|m| m.is_a? ExpressionMachine}.first
-    identifyer_machine = machines.select {|m| m.is_a? IdentifyerMachine}.first
+    identifier_machine = machines.select {|m| m.is_a? IdentifierMachine}.first
     operator_machine = machines.select {|m| m.is_a? OperatorMachine}.first
 
     #priority of machines
@@ -64,8 +64,8 @@ class TokenFactory
       expression_machine
     elsif !operator_machine.nil?
       operator_machine
-    elsif !identifyer_machine.nil? and running.empty?
-      identifyer_machine
+    elsif !identifier_machine.nil? and running.empty?
+      identifier_machine
     end
   end
 end
