@@ -1,13 +1,13 @@
 Class Declaration
-  class <Identifyer>
+  class <Identifier>
   end
 
 Method Declaration
-  meth <Identifyer>(<Variable>....)
+  meth <Identifier>(<Variable>....)
   end
 
 Variable Declaration
-  <Identifyer> [= <Value>]
+  <Identifier> [= <Value>]
 
 Conditions
   if(<Predicate>)
