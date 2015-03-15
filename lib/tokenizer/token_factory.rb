@@ -1,5 +1,4 @@
 Dir["./lib/tokenizer/*machine.rb"].each {|file| require file }
-require 'pry'
 
 class TokenFactory
   def initialize
@@ -41,27 +40,22 @@ class TokenFactory
 
   private
   def machine_in_final_state
-    machines = @machines.select { |machine| machine.in_final_state? }
-    running = @machines.select do |machine|
-      (machine.is_a?(StringMachine) || machine.is_a?(ExpressionMachine)) and machine.running?
-    end
-
-    key_machine = machines.select {|m| m.is_a? KeywordMachine}.first
-    string_machine = machines.select {|m| m.is_a? StringMachine}.first
-    expression_machine = machines.select {|m| m.is_a? ExpressionMachine}.first
-    identifier_machine = machines.select {|m| m.is_a? IdentifierMachine}.first
-    operator_machine = machines.select {|m| m.is_a? OperatorMachine}.first
+    key_machine = @machines.select {|m| m.is_a? KeywordMachine and m.in_final_state?}.first
+    string_machine = @machines.select {|m| m.is_a? StringMachine}.first
+    expression_machine = @machines.select {|m| m.is_a? ExpressionMachine}.first
+    identifier_machine = @machines.select {|m| m.is_a? IdentifierMachine}.first
+    operator_machine = @machines.select {|m| m.is_a? OperatorMachine}.first
 
     #priority of machines
-    if !key_machine.nil?
+    if key_machine
       key_machine
-    elsif !string_machine.nil?
+    elsif string_machine.in_final_state?
       string_machine
-    elsif !expression_machine.nil? and @machines.select {|m| m.is_a?(StringMachine) and m.running?}.first.nil?
+    elsif expression_machine.in_final_state? and !string_machine.running?
       expression_machine
-    elsif !operator_machine.nil?
+    elsif operator_machine.in_final_state?
       operator_machine
-    elsif !identifier_machine.nil? and running.empty?
+    elsif identifier_machine.in_final_state? and !(expression_machine.running? || string_machine.running?)
       identifier_machine
     end
   end
