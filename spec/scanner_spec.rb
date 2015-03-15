@@ -50,6 +50,36 @@ describe :Scanner do
     tokens.should == ['KEY:if', 'EXP:10', 'GT', 'EXP:5', 'KEY:print', 'STRING:10 is greater than 5', 'KEY:end']
   end
 
+  it 'should tokenize a if-else condition' do
+    source_code = <<-CODE
+      if 10 > 5
+        print "10 is greater than 5"
+      else
+        print "5 is greater than 10"
+      end
+    CODE
+
+    tokens = Scanner.tokenize source_code
+    tokens.map! { |t| t.inspect }
+
+    tokens.should == ['KEY:if', 'EXP:10', 'GT', 'EXP:5', 'KEY:print', 'STRING:10 is greater than 5', 'KEY:else', 'KEY:print', 'STRING:5 is greater than 10', 'KEY:end']
+  end
+
+  it 'should tokenize a while loop' do
+    source_code = <<-CODE
+      i = 10
+      while i > 0
+        print i
+        i = i - 1
+      end
+    CODE
+
+    tokens = Scanner.tokenize source_code
+    tokens.map! { |t| t.inspect }
+
+    tokens.should == ['ID:i', 'EQ', 'EXP:10', 'KEY:while', 'ID:i', 'GT', 'EXP:0', 'KEY:print', 'ID:i', 'ID:i', 'EQ', 'ID:i', 'EXP:-1', 'KEY:end']
+  end
+
   it 'should tokenize everything' do
     source_code = <<-CODE
       class HelloWorld

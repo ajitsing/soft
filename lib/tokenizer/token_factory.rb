@@ -6,7 +6,7 @@ class TokenFactory
     string_machine = StringMachine.new
     expression_machine = ExpressionMachine.new
     operator_machine = OperatorMachine.new
-    keyword_machines = ['print', 'class', 'meth', 'end', 'if'].map { |keyword| KeywordMachine.new(keyword) }
+    keyword_machines = ['print', 'class', 'meth', 'end', 'if', 'else', 'while'].map { |keyword| KeywordMachine.new(keyword) }
 
     @machines = [string_machine, expression_machine, identifier_machine, operator_machine] + keyword_machines
   end
