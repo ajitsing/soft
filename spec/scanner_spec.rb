@@ -40,9 +40,9 @@ describe :Scanner do
   it 'should tokenize everything' do
     source_code = <<-CODE
       class HelloWorld
-        meth some_name
-          some_var = "Ajit Singh"
-          some_ex = 10+20*30
+        meth some_method_name
+          var_name = "Ajit Singh"
+          some_ex = 10 + 20 * 30
         end
       end
     CODE
@@ -51,8 +51,8 @@ describe :Scanner do
     tokens.map! { |t| t.inspect }
 
     tokens.should == ['KEY:class', 'ID:HelloWorld',
-                         'KEY:meth', 'ID:some_name',
-                             'ID:some_var', 'EQ', 'STRING:Ajit Singh',
+                         'KEY:meth', 'ID:some_method_name',
+                             'ID:var_name', 'EQ', 'STRING:Ajit Singh',
                              'ID:some_ex', 'EQ', 'EXP:10+20*30',
                           'KEY:end',
                      'KEY:end']

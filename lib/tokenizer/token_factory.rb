@@ -42,7 +42,9 @@ class TokenFactory
   private
   def machine_in_final_state
     machines = @machines.select { |machine| machine.in_final_state? }
-    running = @machines.select { |machine| machine.running? }
+    running = @machines.select do |machine|
+      (machine.is_a?(StringMachine) || machine.is_a?(ExpressionMachine)) and machine.running?
+    end
 
     key_machine = machines.select {|m| m.is_a? KeywordMachine}.first
     string_machine = machines.select {|m| m.is_a? StringMachine}.first
