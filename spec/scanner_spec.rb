@@ -37,6 +37,19 @@ describe :Scanner do
     tokens.should == ['ID:some_var', 'EQ', 'STRING:Ajit']
   end
 
+  it 'should tokenize a if condition' do
+    source_code = <<-CODE
+      if 10 > 5
+        print "10 is greater than 5"
+      end
+    CODE
+
+    tokens = Scanner.tokenize source_code
+    tokens.map! { |t| t.inspect }
+
+    tokens.should == ['KEY:if', 'EXP:10', 'GT', 'EXP:5', 'KEY:print', 'STRING:10 is greater than 5', 'KEY:end']
+  end
+
   it 'should tokenize everything' do
     source_code = <<-CODE
       class HelloWorld
