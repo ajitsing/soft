@@ -12,18 +12,12 @@ class TokenFactory
   end
 
   def raw_data(data)
-    @machines.each do |machine|
-      machine.input data
-    end
+    @machines.each { |machine| machine.input data }
     self
   end
 
   def get_token
     machine_in_final_state.val
-  end
-
-  def machine_states
-    @machines.each { |m| p m, m.state }
   end
 
   def reset_machines
@@ -32,10 +26,6 @@ class TokenFactory
 
   def any_machine_in_final_state?
     !machine_in_final_state.nil?
-  end
-
-  def expression_machine_is_running?
-    !@machines.select { |machine| machine.running? and machine.is_a? ExpressionMachine }.first.nil?
   end
 
   private
