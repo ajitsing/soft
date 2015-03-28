@@ -1,6 +1,10 @@
 class HelloWorld
-  meth hello()
-    print "Hello World!"
-    print 10+15+20
+  meth init
+  end
+
+  meth hello
   end
 end
+
+helloWorld = HelloWorld()
+helloWorld.hello()
