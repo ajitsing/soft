@@ -1,6 +1,6 @@
 require_relative './predicate_statement.rb'
 
-class WhileStatement < PredicateStatement
+class IfStatement < PredicateStatement
   def initialize(lhs, comparator, rhs)
     super(lhs, comparator, rhs)
   end
