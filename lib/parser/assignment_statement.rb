@@ -6,7 +6,7 @@ class AssignmentStatement < Statement
     @value = value
   end
 
-  def print
-    p "ASSIGNMENT_STATMENT(#{@identifier}, #{@value})"
+  def print(spaces)
+    p "#{spaces}ASSIGNMENT_STATMENT(#{@identifier}, #{@value})"
   end
 end

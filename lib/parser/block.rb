@@ -13,7 +13,9 @@ class Block
     true
   end
 
-  def print
-    @statements.collect {|s| s.print}
+  def print(with_spaces = false)
+    @spaces ||= ""
+    @spaces += "    " if with_spaces
+    @statements.collect {|s| s.print(@spaces)}
   end
 end

@@ -27,7 +27,7 @@ describe 'Parser' do
     block = Parser.new.parse(tokens)
 
     block.statements.first.class.should == IfStatement
-    block.statements.size.should == 1
+    block.statements.size.should == 2
   end
 
   it 'should parse if statement with block' do
@@ -38,7 +38,7 @@ describe 'Parser' do
     block.statements.first.class.should == IfStatement
     block.statements.first.block.statements.first.class.should == PrintStatement
     block.statements.first.block.statements.first.value.should == 'Ajit'
-    block.statements.size.should == 1
+    block.statements.size.should == 2
   end
 
   it 'should parse while statement' do
@@ -57,7 +57,7 @@ describe 'Parser' do
     block.statements.first.class.should == WhileStatement
     block.statements.first.block.statements.first.class.should == PrintStatement
     block.statements.first.block.statements.first.value.should == 'Ajit'
-    block.statements.size.should == 1
+    block.statements.size.should == 2
   end
 
   it 'integration spec' do
@@ -66,8 +66,12 @@ describe 'Parser' do
       b = 20
       if a < b
         print a
+        print b
       end
       print "Ajit"
+      while a < b
+        a = a+1
+      end
     CODE
 
     tokens = Scanner.tokenize source_code

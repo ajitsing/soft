@@ -6,7 +6,7 @@ class Parser
     super_block, i = Block.new, 0
 
     add = lambda do |statement|
-        if !super_block.statements.empty? and super_block.statements.last.has_block?
+        if !super_block.statements.empty? and super_block.statements.last.has_block? and !super_block.statements.last.block_closed?
           super_block.statements.last.block.add_statement statement
         else
           super_block.add_statement statement
@@ -29,6 +29,10 @@ class Parser
           elsif curr_tok.while?
             add.call WhileStatement.new(tokens[i+1].val, tokens[i+2].val, tokens[i+3].val)
             skip_tokens.call(4)
+          elsif curr_tok.end?
+            super_block.statements.last.end_block
+            add.call EndStatement.new
+            skip_tokens.call(1)
           else
             skip_tokens.call(1)
           end
