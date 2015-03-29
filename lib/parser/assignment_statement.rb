@@ -5,4 +5,8 @@ class AssignmentStatement < Statement
     @identifier = identifier
     @value = value
   end
+
+  def print
+    p "ASSIGNMENT_STATMENT(#{@identifier}, #{@value})"
+  end
 end

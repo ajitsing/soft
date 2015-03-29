@@ -15,7 +15,7 @@ class Scanner
       end
     end
 
-    p tokens
+    tokens
   end
 
   def self.add_token_to(tokens, next_token)

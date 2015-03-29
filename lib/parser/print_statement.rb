@@ -3,4 +3,8 @@ class PrintStatement
   def initialize(value)
     @value = value
   end
+
+  def print
+    p "PRINT_STATEMENT(#{@value})"
+  end
 end
