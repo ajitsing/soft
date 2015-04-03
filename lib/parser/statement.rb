@@ -8,6 +8,6 @@ class Statement
   end
 
   def inspect
-    'STATEMENT'
+    self.class
   end
 end
