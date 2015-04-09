@@ -10,10 +10,10 @@ class ExpressionMachine < StateMachine
   end
 
   def input(x)
-    if !@regexp.match(x).nil?
+    if !@regexp.match(x).nil? or x == ')'
       @current_state = :final
       @expression << x
-    elsif @mathematical_operators.include? x
+    elsif x == '-' or (@mathematical_operators.include? x and !@expression.empty?) or (x == '(')
       @current_state = :running
       @expression << x
     else

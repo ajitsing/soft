@@ -24,6 +24,9 @@ class Parser
           elsif curr_tok.end?
             statements << EndStatement.new
             skip_tokens.call(1)
+          elsif curr_tok.meth?
+            statements << MethodStatement.new(tokens[i+1], nil)
+            skip_tokens.call(2)
           else
             skip_tokens.call(1)
           end

@@ -11,7 +11,7 @@ describe :Scanner do
     tokens = Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
-    tokens.should == ['KEY:class', 'ID:HelloWorld', 'KEY:end']
+    tokens.should == %w(KEY:class ID:HelloWorld KEY:end)
   end
 
   it 'should tokenize a method declaration' do
@@ -23,8 +23,20 @@ describe :Scanner do
     tokens = Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
-    tokens.should == ['KEY:meth', 'ID:some_name', 'KEY:end']
+    tokens.should == %w(KEY:meth ID:some_name KEY:end)
   end
+
+  # it 'should tokenize a method with args' do
+  #   source_code = <<-CODE
+  #     meth add(num1, num2)
+  #     end
+  #   CODE
+  #
+  #   tokens = Scanner.tokenize source_code
+  #   tokens.map! { |t| t.inspect }
+  #
+  #   tokens.should == %w(KEY:meth ID:add O_PAREN ID:num1 ID:num2 C_PAREN KEY:end)
+  # end
 
   it 'should tokenize a variable declaration' do
     source_code = <<-CODE
@@ -34,7 +46,7 @@ describe :Scanner do
     tokens = Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
-    tokens.should == ['ID:some_var', 'EQ', 'STRING:Ajit']
+    tokens.should == %w(ID:some_var EQ STRING:Ajit)
   end
 
   it 'should tokenize a if condition' do
@@ -77,7 +89,7 @@ describe :Scanner do
     tokens = Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
-    tokens.should == ['ID:i', 'EQ', 'EXP:10', 'KEY:while', 'ID:i', 'GT', 'EXP:0', 'KEY:print', 'ID:i', 'ID:i', 'EQ', 'ID:i', 'EXP:-1', 'KEY:end']
+    tokens.should == %w(ID:i EQ EXP:10 KEY:while ID:i GT EXP:0 KEY:print ID:i ID:i EQ ID:i EXP:-1 KEY:end)
   end
 
   it 'should tokenize everything' do
@@ -85,7 +97,7 @@ describe :Scanner do
       class HelloWorld
         meth some_method_name
           var_name = "Ajit Singh"
-          some_ex = 10 + 20 * 30
+          some_ex = 10+20*30
         end
       end
     CODE

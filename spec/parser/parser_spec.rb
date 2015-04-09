@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 
 describe 'Parser' do
   it 'should parse an empty block' do
@@ -7,16 +6,16 @@ describe 'Parser' do
   end
 
   it 'should parse print statement' do
-    tokens = [KeywordToken.new('print'), StringToken.new("Ajit")]
+    tokens = [KeywordToken.new('print'), StringToken.new('Ajit')]
     statements = Parser.new.to_statements(tokens)
 
     statements.first.class.should == PrintStatement
-    statements.first.value.should == "Ajit"
+    statements.first.value.should == 'Ajit'
     statements.size.should == 1
   end
 
   it 'should parse assignment statement' do
-    tokens = [IdentifierToken.new('name'),Token.new('EQ'), StringToken.new("Ajit")]
+    tokens = [IdentifierToken.new('name'),Token.new('EQ'), StringToken.new('Ajit')]
     statements = Parser.new.to_statements(tokens)
 
     statements.first.class.should == AssignmentStatement
@@ -60,6 +59,15 @@ describe 'Parser' do
     statements.size.should == 3
   end
 
+  it 'should parse method statement' do
+    tokens = [KeywordToken.new('meth'),IdentifierToken.new('add'), KeywordToken.new('end')]
+    statements = Parser.new.to_statements(tokens)
+
+    statements.size.should == 2
+    statements.first.class.should == MethodStatement
+    statements[1].class.should == EndStatement
+  end
+
   it 'integration spec' do
     source_code = <<-CODE
       if a < b
@@ -70,8 +78,8 @@ describe 'Parser' do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
-    statements = Parser.new.to_statements(tokens)
-    statements
+    # tokens = Scanner.tokenize source_code
+    # statements = Parser.new.to_statements(tokens)
+    # statements
   end
 end
