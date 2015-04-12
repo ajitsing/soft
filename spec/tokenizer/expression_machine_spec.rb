@@ -29,10 +29,9 @@ describe :ExpressionMachine do
     ExpressionMachine.new.input('1').input('2').state.should == :final
   end
 
-  it 'should be in :final state when input has brackets' do
-    machine = ExpressionMachine.new.input('(').input('1').input(')')
-    machine.state.should == :final
-    machine.val.inspect.should == 'EXP:(1)'
+  it 'should be in :dead state when input has nothing to do with expression' do
+    machine = ExpressionMachine.new.input('a').input('a').input('2').input('(').input('1').input(')')
+    machine.state.should == :dead
   end
 
   it 'should be in :final state when input is numbers with airthematic operations' do

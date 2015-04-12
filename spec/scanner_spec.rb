@@ -26,17 +26,16 @@ describe :Scanner do
     tokens.should == %w(KEY:meth ID:some_name KEY:end)
   end
 
-  # it 'should tokenize a method with args' do
-  #   source_code = <<-CODE
-  #     meth add(num1, num2)
-  #     end
-  #   CODE
-  #
-  #   tokens = Scanner.tokenize source_code
-  #   tokens.map! { |t| t.inspect }
-  #
-  #   tokens.should == %w(KEY:meth ID:add O_PAREN ID:num1 ID:num2 C_PAREN KEY:end)
-  # end
+  it 'should tokenize a method with args' do
+    source_code = <<-CODE
+      meth add(num1,num2)
+      end
+    CODE
+
+    tokens = Scanner.tokenize source_code
+    tokens.map! {|t| t.is_a?(Array) ? t.map {|a| a.inspect} : t.inspect}
+    tokens.should == ['KEY:meth', %w(ID:add ID:num1 ID:num2), 'KEY:end']
+  end
 
   it 'should tokenize a variable declaration' do
     source_code = <<-CODE

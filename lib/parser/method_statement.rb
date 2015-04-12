@@ -1,9 +1,10 @@
 require_relative './block.rb'
+require_relative './statement.rb'
 
-class MethodStatement
+class MethodStatement < Statement
   attr_accessor :block
 
-  def initialize(name, *args)
+  def initialize(name, args)
     @name = name
     @args = args
     @block = Block.new
@@ -27,7 +28,7 @@ class MethodStatement
   end
 
   def print(spaces)
-    p "#{spaces}METH (#{@lhs}, #{@comparator}, #{@rhs})"
+    p "#{spaces}METH (#{@name},(#{@args})"
     @block.print(true)
   end
 end

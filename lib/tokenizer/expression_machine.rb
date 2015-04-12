@@ -5,12 +5,12 @@ class ExpressionMachine < StateMachine
   def initialize
     super
     @expression = ""
-    @regexp = Regexp.new("[0-9]")
-    @mathematical_operators = ['+', '-', '*', '/', '%']
+    @regexp = Regexp.new('[0-9]')
+    @mathematical_operators = %w(+ - * / %)
   end
 
   def input(x)
-    if !@regexp.match(x).nil? or x == ')'
+    if !@regexp.match(x).nil?
       @current_state = :final
       @expression << x
     elsif x == '-' or (@mathematical_operators.include? x and !@expression.empty?) or (x == '(')

@@ -68,18 +68,31 @@ describe 'Parser' do
     statements[1].class.should == EndStatement
   end
 
+  it 'should parse method with args' do
+    tokens = [KeywordToken.new('meth'), [IdentifierToken.new('add'), IdentifierToken.new('num1'), IdentifierToken.new('num2')], KeywordToken.new('end')]
+    statements = Parser.new.to_statements(tokens)
+
+    statements.size.should == 2
+    statements.first.class.should == MethodStatement
+    statements[1].class.should == EndStatement
+  end
+
   it 'integration spec' do
     source_code = <<-CODE
-      if a < b
-        print a
+      meth cool(a,b)
         if a < b
-          print b
+          print a
+          if a < b
+            print b
+          end
         end
       end
     CODE
 
-    # tokens = Scanner.tokenize source_code
-    # statements = Parser.new.to_statements(tokens)
-    # statements
+    tokens = Scanner.tokenize source_code
+    statements = Parser.new.to_statements(tokens)
+    statements.map! {|s| s.inspect}
+    
+    statements.should == [MethodStatement, IfStatement, PrintStatement, IfStatement, PrintStatement, EndStatement, EndStatement, EndStatement]
   end
 end

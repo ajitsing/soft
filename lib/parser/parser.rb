@@ -25,7 +25,9 @@ class Parser
             statements << EndStatement.new
             skip_tokens.call(1)
           elsif curr_tok.meth?
-            statements << MethodStatement.new(tokens[i+1], nil)
+            meth_name = tokens[i+1].is_a?(Array) ? tokens[i+1].first : tokens[i+1]
+            args = tokens[i+1].is_a?(Array) ? tokens[i+1][1..-1] : []
+            statements << MethodStatement.new(meth_name, args)
             skip_tokens.call(2)
           else
             skip_tokens.call(1)

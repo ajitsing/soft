@@ -1,6 +1,7 @@
 require_relative 'state_machine'
 require_relative '../tokenizer/tokens/identifier_token.rb'
 require_relative '../tokenizer/tokens/token.rb'
+require 'pry'
 
 class MethArgsMachine < StateMachine
   def initialize
@@ -25,8 +26,9 @@ class MethArgsMachine < StateMachine
   end
 
   def val
-    args = @input.split('(')[1].chop
+    split = @input.split('(')
+    meth_name, args = split.first, split[1].chop
     tokens = args.split(',').map { |x| IdentifierToken.new(x.strip) }
-    [Token.new('O_PARAN')] + tokens + [Token.new('C_PARAN')]
+    [IdentifierToken.new(meth_name)] + tokens
   end
 end

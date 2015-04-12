@@ -1,5 +1,6 @@
 Dir["./lib/tokenizer/*.rb"].each {|file| require file }
 Dir["./lib/parser/*.rb"].each {|file| require file }
+Dir["./lib/*.rb"].each {|file| require file }
 
 # If you're using rspec-core:
 RSpec.configure do |config|
