@@ -1,7 +1,7 @@
-require_relative 'token'
-
-class StringToken < Token
-  def inspect
-    'STRING:' + @tok
+module Soft
+  class StringToken < Token
+    def inspect
+      'STRING:' + @tok
+    end
   end
 end

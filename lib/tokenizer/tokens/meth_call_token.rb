@@ -1,7 +1,7 @@
-require_relative 'token'
-
-class MethCallToken < Token
-  def inspect
-    'MethCall:' + @tok
+module Soft
+  class MethCallToken < Token
+    def inspect
+      'MethCall:' + @tok
+    end
   end
 end

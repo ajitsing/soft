@@ -1,80 +1,80 @@
 require 'spec_helper'
 
-describe 'Parser' do
+describe 'Soft::Parser' do
   it 'should parse an empty block' do
-    Parser.new.to_statements([]).should == []
+    Soft::Parser.new.to_statements([]).should == []
   end
 
   it 'should parse print statement' do
-    tokens = [KeywordToken.new('print'), StringToken.new('Ajit')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('print'), Soft::StringToken.new('Ajit')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
-    statements.first.class.should == PrintStatement
+    statements.first.class.should == Soft::PrintStatement
     statements.first.value.should == 'Ajit'
     statements.size.should == 1
   end
 
   it 'should parse assignment statement' do
-    tokens = [IdentifierToken.new('name'),Token.new('EQ'), StringToken.new('Ajit')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::IdentifierToken.new('name'),Soft::Token.new('EQ'), Soft::StringToken.new('Ajit')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
-    statements.first.class.should == AssignmentStatement
+    statements.first.class.should == Soft::AssignmentStatement
     statements.size.should == 1
   end
 
   it 'should parse if statement' do
-    tokens = [KeywordToken.new('if'),IdentifierToken.new('name'), Token.new('EQ-EQ'), StringToken.new("Ajit"), KeywordToken.new('end')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('if'),Soft::IdentifierToken.new('name'), Soft::Token.new('EQ-EQ'), Soft::StringToken.new("Ajit"), Soft::KeywordToken.new('end')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
-    statements.first.class.should == IfStatement
-    statements[1].class.should == EndStatement
+    statements.first.class.should == Soft::IfStatement
+    statements[1].class.should == Soft::EndStatement
     statements.size.should == 2
   end
 
   it 'should parse if statement with block' do
-    tokens = [KeywordToken.new('if'),IdentifierToken.new('name'), Token.new('EQ-EQ'), StringToken.new("Ajit"),
-              KeywordToken.new('print'), StringToken.new("Ajit"), KeywordToken.new('end')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('if'),Soft::IdentifierToken.new('name'), Soft::Token.new('EQ-EQ'), Soft::StringToken.new("Ajit"),
+              Soft::KeywordToken.new('print'), Soft::StringToken.new("Ajit"), Soft::KeywordToken.new('end')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
-    statements.first.class.should == IfStatement
-    statements[1].class.should == PrintStatement
+    statements.first.class.should == Soft::IfStatement
+    statements[1].class.should == Soft::PrintStatement
     statements[1].value.should == 'Ajit'
-    statements[2].class.should == EndStatement
+    statements[2].class.should == Soft::EndStatement
     statements.size.should == 3
   end
 
   it 'should parse while statement' do
-    tokens = [KeywordToken.new('while'),IdentifierToken.new('number'), Token.new('LT'), ExpressionToken.new("5")]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('while'),Soft::IdentifierToken.new('number'), Soft::Token.new('LT'), Soft::ExpressionToken.new("5")]
+    statements = Soft::Parser.new.to_statements(tokens)
 
-    statements.first.class.should == WhileStatement
+    statements.first.class.should == Soft::WhileStatement
     statements.size.should == 1
   end
 
   it 'should parse while statement with block' do
-    tokens = [KeywordToken.new('while'),IdentifierToken.new('number'), Token.new('LT'), ExpressionToken.new("5"),
-              KeywordToken.new('print'), StringToken.new("Ajit"), KeywordToken.new('end')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('while'),Soft::IdentifierToken.new('number'), Soft::Token.new('LT'), Soft::ExpressionToken.new("5"),
+              Soft::KeywordToken.new('print'), Soft::StringToken.new("Ajit"), Soft::KeywordToken.new('end')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
     statements.size.should == 3
   end
 
   it 'should parse method statement' do
-    tokens = [KeywordToken.new('meth'),IdentifierToken.new('add'), KeywordToken.new('end')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('meth'),Soft::IdentifierToken.new('add'), Soft::KeywordToken.new('end')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
     statements.size.should == 2
-    statements.first.class.should == MethodStatement
-    statements[1].class.should == EndStatement
+    statements.first.class.should == Soft::MethodStatement
+    statements[1].class.should == Soft::EndStatement
   end
 
   it 'should parse method with args' do
-    tokens = [KeywordToken.new('meth'), [IdentifierToken.new('add'), IdentifierToken.new('num1'), IdentifierToken.new('num2')], KeywordToken.new('end')]
-    statements = Parser.new.to_statements(tokens)
+    tokens = [Soft::KeywordToken.new('meth'), [Soft::IdentifierToken.new('add'), Soft::IdentifierToken.new('num1'), Soft::IdentifierToken.new('num2')], Soft::KeywordToken.new('end')]
+    statements = Soft::Parser.new.to_statements(tokens)
 
     statements.size.should == 2
-    statements.first.class.should == MethodStatement
-    statements[1].class.should == EndStatement
+    statements.first.class.should == Soft::MethodStatement
+    statements[1].class.should == Soft::EndStatement
   end
 
   it 'integration spec' do
@@ -89,10 +89,10 @@ describe 'Parser' do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
-    statements = Parser.new.to_statements(tokens)
+    tokens = Soft::Scanner.tokenize source_code
+    statements = Soft::Parser.new.to_statements(tokens)
     statements.map! {|s| s.inspect}
     
-    statements.should == [MethodStatement, IfStatement, PrintStatement, IfStatement, PrintStatement, EndStatement, EndStatement, EndStatement]
+    statements.should == [Soft::MethodStatement, Soft::IfStatement, Soft::PrintStatement, Soft::IfStatement, Soft::PrintStatement, Soft::EndStatement, Soft::EndStatement, Soft::EndStatement]
   end
 end

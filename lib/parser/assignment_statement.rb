@@ -1,12 +1,12 @@
-require_relative './statement.rb'
+module Soft
+  class AssignmentStatement < Statement
+    def initialize(identifier, value)
+      @identifier = identifier
+      @value = value
+    end
 
-class AssignmentStatement < Statement
-  def initialize(identifier, value)
-    @identifier = identifier
-    @value = value
-  end
-
-  def print(spaces)
-    p "#{spaces}ASSIGNMENT_STATMENT(#{@identifier}, #{@value})"
+    def print(spaces)
+      p "#{spaces}ASSIGNMENT_STATMENT(#{@identifier}, #{@value})"
+    end
   end
 end

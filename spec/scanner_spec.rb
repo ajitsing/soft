@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './lib/scanner.rb'
 
 describe :Scanner do
   it 'should tokenize a class declaration' do
@@ -8,7 +7,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == %w(KEY:class ID:HelloWorld KEY:end)
@@ -20,7 +19,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == %w(KEY:meth ID:some_name KEY:end)
@@ -32,7 +31,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! {|t| t.is_a?(Array) ? t.map {|a| a.inspect} : t.inspect}
     tokens.should == ['KEY:meth', %w(ID:add ID:num1 ID:num2), 'KEY:end']
   end
@@ -42,7 +41,7 @@ describe :Scanner do
       some_var = "Ajit"
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == %w(ID:some_var EQ STRING:Ajit)
@@ -55,7 +54,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == ['KEY:if', 'EXP:10', 'GT', 'EXP:5', 'KEY:print', 'STRING:10 is greater than 5', 'KEY:end']
@@ -70,7 +69,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == ['KEY:if', 'EXP:10', 'GT', 'EXP:5', 'KEY:print', 'STRING:10 is greater than 5', 'KEY:else', 'KEY:print', 'STRING:5 is greater than 10', 'KEY:end']
@@ -85,7 +84,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == %w(ID:i EQ EXP:10 KEY:while ID:i GT EXP:0 KEY:print ID:i ID:i EQ ID:i EXP:-1 KEY:end)
@@ -101,7 +100,7 @@ describe :Scanner do
       end
     CODE
 
-    tokens = Scanner.tokenize source_code
+    tokens = Soft::Scanner.tokenize source_code
     tokens.map! { |t| t.inspect }
 
     tokens.should == ['KEY:class', 'ID:HelloWorld',

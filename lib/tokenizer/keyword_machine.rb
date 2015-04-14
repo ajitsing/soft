@@ -1,37 +1,36 @@
-require_relative 'state_machine'
-require_relative '../tokenizer/tokens/keyword_token'
-
-class KeywordMachine < StateMachine
-  def initialize(keyword)
-    super()
-    @keyword = keyword
-    @states = keyword.chars
-  end
-
-  def input(x)
-    if @states.first == x
-      @states = @states[1..-1]
-      @current_state = :running
-      put_in_final_state?
-    else
-      @current_state = :dead
+module Soft
+  class KeywordMachine < StateMachine
+    def initialize(keyword)
+      super()
+      @keyword = keyword
+      @states = keyword.chars
     end
-    self
-  end
 
-  def val
-    KeywordToken.new @keyword
-  end
+    def input(x)
+      if @states.first == x
+        @states = @states[1..-1]
+        @current_state = :running
+        put_in_final_state?
+      else
+        @current_state = :dead
+      end
+      self
+    end
 
-  def reset_state
-    super
-    @states = @keyword.chars
-  end
+    def val
+      KeywordToken.new @keyword
+    end
 
-  private
-  def put_in_final_state?
-    if @states.empty?
-      @current_state = :final
+    def reset_state
+      super
+      @states = @keyword.chars
+    end
+
+    private
+    def put_in_final_state?
+      if @states.empty?
+        @current_state = :final
+      end
     end
   end
 end

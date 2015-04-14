@@ -1,39 +1,38 @@
-require_relative 'state_machine'
-require_relative '../tokenizer/tokens/string_token'
-
-class StringMachine < StateMachine
-  def initialize
-    super
-    @string = ""
-  end
-
-  def input(x)
-    return if halted?
-
-    if double_quote?(x) and (!running? || not_started?)
-      @current_state = :running
-    elsif double_quote?(x) and running?
-      @current_state = :final
-    elsif in_final_state?
-      @current_state = :halt
-    else
-      @string << x
+module Soft
+  class StringMachine < StateMachine
+    def initialize
+      super
+      @string = ""
     end
 
-    self
-  end
+    def input(x)
+      return if halted?
 
-  def val
-    StringToken.new @string
-  end
+      if double_quote?(x) and (!running? || not_started?)
+        @current_state = :running
+      elsif double_quote?(x) and running?
+        @current_state = :final
+      elsif in_final_state?
+        @current_state = :halt
+      else
+        @string << x
+      end
 
-  def reset_state
-    super
-    @string = ""
-  end
+      self
+    end
 
-  private
-  def double_quote?(x)
-    x == "\""
+    def val
+      StringToken.new @string
+    end
+
+    def reset_state
+      super
+      @string = ""
+    end
+
+    private
+    def double_quote?(x)
+      x == "\""
+    end
   end
 end

@@ -1,12 +1,13 @@
-require_relative './statement.rb'
+module Soft
+  class PrintStatement < Statement
+    attr_accessor :value
 
-class PrintStatement < Statement
-  attr_accessor :value
-  def initialize(value)
-    @value = value
-  end
+    def initialize(value)
+      @value = value
+    end
 
-  def print(spaces)
-    p "#{spaces}PRINT_STATEMENT(#{@value})"
+    def print(spaces)
+      p "#{spaces}PRINT_STATEMENT(#{@value})"
+    end
   end
 end
