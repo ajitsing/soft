@@ -11,15 +11,15 @@ module PrettyPrinter
 
   def print_info(msg, centered = false)
     msg = msg.center(terminal_width) if centered
-    $stdout.write green(msg)
+    STDOUT.write green(msg)
   end
 
   def print_warning(msg, centered = false)
     msg = msg.center(terminal_width) if centered
-    $stdout.write red(msg)
+    STDOUT.write red(msg)
   end
 
   def print_in(color, msg)
-    $stdout.write self.send(color, msg)
+    STDOUT.write self.send(color, msg)
   end
 end

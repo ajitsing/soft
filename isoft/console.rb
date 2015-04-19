@@ -21,7 +21,7 @@ end
 
 def start_console
   while true
-    $stdout.write 'soft 0.1> '
+    STDOUT.write('soft 0.1> ')
     input = get_input
     shut_down if input == "exit\n"
 
