@@ -4,10 +4,6 @@ load("#{File.dirname(__FILE__)}/pretty_printer.rb")
 
 include PrettyPrinter
 
-def colorize(text, color_code)
-  "#{color_code}#{text}\e[0m"
-end
-
 def get_input
   answer = ''
   while true
@@ -31,7 +27,7 @@ def start_console
       print_warning("Parsing error: #{e.message} \n")
     end
   end
-  system 'stty sane'
+  reset_terminal
 end
 
 def compile(input)
